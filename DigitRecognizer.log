@@ -1,0 +1,1156 @@
+[2020-11-07 01:11:46]Loaded [CpuBackend] backend
+[2020-11-07 01:11:50]Number of threads used for NativeOps: 4
+[2020-11-07 01:11:52]Number of threads used for BLAS: 4
+[2020-11-07 01:11:53]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 01:11:53]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 01:11:53]Blas vendor: [OPENBLAS]
+[2020-11-07 01:11:53]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 01:11:54]Failed to start
+java.nio.file.NoSuchFileException: face\src\main\resources\face\conv1_b.csv
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:79) ~[?:1.8.0_171]
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:97) ~[?:1.8.0_171]
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:102) ~[?:1.8.0_171]
+	at sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:230) ~[?:1.8.0_171]
+	at java.nio.file.Files.newByteChannel(Files.java:361) ~[?:1.8.0_171]
+	at java.nio.file.Files.newByteChannel(Files.java:407) ~[?:1.8.0_171]
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384) ~[?:1.8.0_171]
+	at java.nio.file.Files.newInputStream(Files.java:152) ~[?:1.8.0_171]
+	at java.nio.file.Files.newBufferedReader(Files.java:2784) ~[?:1.8.0_171]
+	at java.nio.file.Files.lines(Files.java:3744) ~[?:1.8.0_171]
+	at java.nio.file.Files.lines(Files.java:3785) ~[?:1.8.0_171]
+	at main.FaceNetSmallV2Helper.readWightsValues(FaceNetSmallV2Helper.java:118) ~[classes/:?]
+	at main.FaceNetSmallV2Helper.loadWeights(FaceNetSmallV2Helper.java:136) ~[classes/:?]
+	at main.FaceNetSmallV2Model.init(FaceNetSmallV2Model.java:432) ~[classes/:?]
+	at main.FaceRecognition.loadModel(FaceRecognition.java:65) ~[classes/:?]
+	at ui.FaceRecogntionUI.initUI(FaceRecogntionUI.java:49) ~[classes/:?]
+	at main.RunFaceRecognition.lambda$main$0(RunFaceRecognition.java:25) ~[classes/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_171]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_171]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_171]
+[2020-11-07 01:14:12]Loaded [CpuBackend] backend
+[2020-11-07 01:14:14]Number of threads used for NativeOps: 4
+[2020-11-07 01:14:15]Number of threads used for BLAS: 4
+[2020-11-07 01:14:15]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 01:14:15]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 01:14:15]Blas vendor: [OPENBLAS]
+[2020-11-07 01:14:16]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 01:14:21]
+==========================================================================================================================================================================================================================================================
+VertexName (VertexType)                 nIn,nOut  TotalParams ParamsShape                             Vertex Inputs                 
+==========================================================================================================================================================================================================================================================
+input1 (InputVertex)                    -,-       -           -                                       -                             
+pad1 (ZeroPaddingLayer)                 -,-       0           -                                       [input1]                      
+conv1 (ConvolutionLayer)                3,64      9472        W:{64,3,7,7}, b:{1,64}                  [pad1]                        
+bn1 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv1]                       
+relu1 (ActivationLayer)                 -,-       0           -                                       [bn1]                         
+pad2 (ZeroPaddingLayer)                 -,-       0           -                                       [relu1]                       
+pool1 (SubsamplingLayer)                -,-       0           -                                       [pad2]                        
+conv2 (ConvolutionLayer)                64,64     4160        W:{64,64,1,1}, b:{1,64}                 [pool1]                       
+bn2 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv2]                       
+relu2 (ActivationLayer)                 -,-       0           -                                       [bn2]                         
+pad3 (ZeroPaddingLayer)                 -,-       0           -                                       [relu2]                       
+conv3 (ConvolutionLayer)                64,192    110784      W:{192,64,3,3}, b:{1,192}               [pad3]                        
+bn3 (BatchNormalization)                192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[conv3]                       
+relu3 (ActivationLayer)                 -,-       0           -                                       [bn3]                         
+pad4 (ZeroPaddingLayer)                 -,-       0           -                                       [relu3]                       
+pool2 (SubsamplingLayer)                -,-       0           -                                       [pad4]                        
+inception_3a_3x3_conv1 (ConvolutionLayer)192,96    18528       W:{96,192,1,1}, b:{1,96}                [pool2]                       
+inception_3a_1x1_conv (ConvolutionLayer)192,64    12352       W:{64,192,1,1}, b:{1,64}                [pool2]                       
+inception_3a_5x5_conv1 (ConvolutionLayer)192,16    3088        W:{16,192,1,1}, b:{1,16}                [pool2]                       
+pool3 (SubsamplingLayer)                -,-       0           -                                       [pool2]                       
+inception_3a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3a_3x3_conv1]      
+inception_3a_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3a_1x1_conv]       
+inception_3a_5x5_bn1 (BatchNormalization)16,16     64          gamma:{1,16}, beta:{1,16}, mean:{1,16}, var:{1,16}[inception_3a_5x5_conv1]      
+inception_3a_pool_conv (ConvolutionLayer)192,32    6176        W:{32,192,1,1}, b:{1,32}                [pool3]                       
+relu4 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn1]        
+relu9 (ActivationLayer)                 -,-       0           -                                       [inception_3a_1x1_bn]         
+relu6 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn1]        
+inception_3a_pool_bn (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_pool_conv]      
+padding1 (ZeroPaddingLayer)             -,-       0           -                                       [relu4]                       
+padding2 (ZeroPaddingLayer)             -,-       0           -                                       [relu6]                       
+relu8 (ActivationLayer)                 -,-       0           -                                       [inception_3a_pool_bn]        
+inception_3a_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding1]                    
+inception_3a_5x5_conv2 (ConvolutionLayer)16,32     12832       W:{32,16,5,5}, b:{1,32}                 [padding2]                    
+padding3 (ZeroPaddingLayer)             -,-       0           -                                       [relu8]                       
+inception_3a_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3a_3x3_conv2]      
+inception_3a_5x5_bn2 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_5x5_conv2]      
+relu5 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn2]        
+relu7 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn2]        
+inception_3a (MergeVertex)              -,-       -           -                                       [relu5, relu7, padding3, relu9]
+avg1 (SubsamplingLayer)                 -,-       0           -                                       [inception_3a]                
+inception_3b_3x3_conv1 (ConvolutionLayer)256,96    24672       W:{96,256,1,1}, b:{1,96}                [inception_3a]                
+inception_3b_1x1_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [inception_3a]                
+inception_3b_5x5_conv1 (ConvolutionLayer)256,32    8224        W:{32,256,1,1}, b:{1,32}                [inception_3a]                
+inception_3b_pool_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [avg1]                        
+inception_3b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3b_3x3_conv1]      
+inception_3b_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_1x1_conv]       
+inception_3b_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3b_5x5_conv1]      
+inception_3b_pool_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_pool_conv]      
+relu10 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn1]        
+relu15 (ActivationLayer)                -,-       0           -                                       [inception_3b_1x1_bn]         
+relu12 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn1]        
+relu14 (ActivationLayer)                -,-       0           -                                       [inception_3b_pool_bn]        
+padding4 (ZeroPaddingLayer)             -,-       0           -                                       [relu10]                      
+padding5 (ZeroPaddingLayer)             -,-       0           -                                       [relu12]                      
+padding6 (ZeroPaddingLayer)             -,-       0           -                                       [relu14]                      
+inception_3b_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding4]                    
+inception_3b_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding5]                    
+inception_3b_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3b_3x3_conv2]      
+inception_3b_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_5x5_conv2]      
+relu11 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn2]        
+relu13 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn2]        
+inception_3b (MergeVertex)              -,-       -           -                                       [relu11, relu13, padding6, relu15]
+inception_3c_5x5_conv1 (ConvolutionLayer)320,32    10272       W:{32,320,1,1}, b:{1,32}                [inception_3b]                
+pool7 (SubsamplingLayer)                -,-       0           -                                       [inception_3b]                
+inception_3c_3x3_conv1 (ConvolutionLayer)320,128   41088       W:{128,320,1,1}, b:{1,128}              [inception_3b]                
+inception_3c_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3c_5x5_conv1]      
+padding9 (ZeroPaddingLayer)             -,-       0           -                                       [pool7]                       
+inception_3c_3x3_bn1 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3c_3x3_conv1]      
+relu18 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn1]        
+relu16 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn1]        
+padding8 (ZeroPaddingLayer)             -,-       0           -                                       [relu18]                      
+padding7 (ZeroPaddingLayer)             -,-       0           -                                       [relu16]                      
+inception_3c_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding8]                    
+inception_3c_3x3_conv2 (ConvolutionLayer)128,256   295168      W:{256,128,3,3}, b:{1,256}              [padding7]                    
+inception_3c_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3c_5x5_conv2]      
+inception_3c_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_3c_3x3_conv2]      
+relu19 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn2]        
+relu17 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn2]        
+inception_3c (MergeVertex)              -,-       -           -                                       [relu17, relu19, padding9]    
+inception_4a_1x1_conv (ConvolutionLayer)640,256   164096      W:{256,640,1,1}, b:{1,256}              [inception_3c]                
+inception_4a_5x5_conv1 (ConvolutionLayer)640,32    20512       W:{32,640,1,1}, b:{1,32}                [inception_3c]                
+avg7 (SubsamplingLayer)                 -,-       0           -                                       [inception_3c]                
+inception_4a_3x3_conv1 (ConvolutionLayer)640,96    61536       W:{96,640,1,1}, b:{1,96}                [inception_3c]                
+inception_4a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4a_1x1_conv]       
+inception_4a_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_4a_5x5_conv1]      
+inception_4a_pool_conv (ConvolutionLayer)640,128   82048       W:{128,640,1,1}, b:{1,128}              [avg7]                        
+inception_4a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_4a_3x3_conv1]      
+relu25 (ActivationLayer)                -,-       0           -                                       [inception_4a_1x1_bn]         
+relu22 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn1]        
+inception_4a_pool_bn (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4a_pool_conv]      
+relu20 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn1]        
+padding11 (ZeroPaddingLayer)            -,-       0           -                                       [relu22]                      
+relu24 (ActivationLayer)                -,-       0           -                                       [inception_4a_pool_bn]        
+padding10 (ZeroPaddingLayer)            -,-       0           -                                       [relu20]                      
+inception_4a_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding11]                   
+padding12 (ZeroPaddingLayer)            -,-       0           -                                       [relu24]                      
+inception_4a_3x3_conv2 (ConvolutionLayer)96,192    166080      W:{192,96,3,3}, b:{1,192}               [padding10]                   
+inception_4a_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4a_5x5_conv2]      
+inception_4a_3x3_bn2 (BatchNormalization)192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[inception_4a_3x3_conv2]      
+relu23 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn2]        
+relu21 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn2]        
+inception_4a (MergeVertex)              -,-       -           -                                       [relu21, relu23, relu25, padding12]
+pool8 (SubsamplingLayer)                -,-       0           -                                       [inception_4a]                
+inception_4e_3x3_conv1 (ConvolutionLayer)640,160   102560      W:{160,640,1,1}, b:{1,160}              [inception_4a]                
+inception_4e_5x5_conv1 (ConvolutionLayer)640,64    41024       W:{64,640,1,1}, b:{1,64}                [inception_4a]                
+padding15 (ZeroPaddingLayer)            -,-       0           -                                       [pool8]                       
+inception_4e_3x3_bn1 (BatchNormalization)160,160   640         gamma:{1,160}, beta:{1,160}, mean:{1,160}, var:{1,160}[inception_4e_3x3_conv1]      
+inception_4e_5x5_bn1 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4e_5x5_conv1]      
+relu26 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn1]        
+relu28 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn1]        
+padding13 (ZeroPaddingLayer)            -,-       0           -                                       [relu26]                      
+padding14 (ZeroPaddingLayer)            -,-       0           -                                       [relu28]                      
+inception_4e_3x3_conv2 (ConvolutionLayer)160,256   368896      W:{256,160,3,3}, b:{1,256}              [padding13]                   
+inception_4e_5x5_conv2 (ConvolutionLayer)64,128    204928      W:{128,64,5,5}, b:{1,128}               [padding14]                   
+inception_4e_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4e_3x3_conv2]      
+inception_4e_5x5_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4e_5x5_conv2]      
+relu27 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn2]        
+relu29 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn2]        
+inception_4e (MergeVertex)              -,-       -           -                                       [relu27, relu29, padding15]   
+inception_5a_1x1_conv (ConvolutionLayer)1024,256  262400      W:{256,1024,1,1}, b:{1,256}             [inception_4e]                
+inception_5a_3x3_conv1 (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [inception_4e]                
+avg9 (SubsamplingLayer)                 -,-       0           -                                       [inception_4e]                
+inception_5a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5a_1x1_conv]       
+inception_5a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_3x3_conv1]      
+inception_5a_pool_conv (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [avg9]                        
+relu33 (ActivationLayer)                -,-       0           -                                       [inception_5a_1x1_bn]         
+relu30 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn1]        
+inception_5a_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_pool_conv]      
+padding16 (ZeroPaddingLayer)            -,-       0           -                                       [relu30]                      
+relu32 (ActivationLayer)                -,-       0           -                                       [inception_5a_pool_bn]        
+inception_5a_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding16]                   
+padding17 (ZeroPaddingLayer)            -,-       0           -                                       [relu32]                      
+inception_5a_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5a_3x3_conv2]      
+relu31 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn2]        
+inception_5a (MergeVertex)              -,-       -           -                                       [relu31, padding17, relu33]   
+inception_5b_1x1_conv (ConvolutionLayer)736,256   188672      W:{256,736,1,1}, b:{1,256}              [inception_5a]                
+inception_5b_3x3_conv1 (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [inception_5a]                
+max2 (SubsamplingLayer)                 -,-       0           -                                       [inception_5a]                
+inception_5b_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5b_1x1_conv]       
+inception_5b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_3x3_conv1]      
+inception_5b_pool_conv (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [max2]                        
+relu37 (ActivationLayer)                -,-       0           -                                       [inception_5b_1x1_bn]         
+relu34 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn1]        
+inception_5b_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_pool_conv]      
+padding18 (ZeroPaddingLayer)            -,-       0           -                                       [relu34]                      
+relu36 (ActivationLayer)                -,-       0           -                                       [inception_5b_pool_bn]        
+inception_5b_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding18]                   
+padding19 (ZeroPaddingLayer)            -,-       0           -                                       [relu36]                      
+inception_5b_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5b_3x3_conv2]      
+relu35 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn2]        
+inception_5b (MergeVertex)              -,-       -           -                                       [relu35, padding19, relu37]   
+avgpool (SubsamplingLayer)              -,-       0           -                                       [inception_5b]                
+dense (DenseLayer)                      736,128   94336       W:{736,128}, b:{1,128}                  [avgpool]                     
+encodings (L2NormalizeVertex)           -,-       -           -                                       [dense]                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            Total Parameters:  3743280
+        Trainable Parameters:  3743280
+           Frozen Parameters:  0
+==========================================================================================================================================================================================================================================================
+
+[2020-11-07 01:14:21]Failed to start
+java.lang.NullPointerException: null
+	at java.util.Objects.requireNonNull(Objects.java:203) ~[?:1.8.0_171]
+	at ui.FaceRecogntionUI.fillMainPanel(FaceRecogntionUI.java:123) ~[classes/:?]
+	at ui.FaceRecogntionUI.initUI(FaceRecogntionUI.java:95) ~[classes/:?]
+	at main.RunFaceRecognition.lambda$main$0(RunFaceRecognition.java:25) ~[classes/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_171]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_171]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_171]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_171]
+[2020-11-07 01:16:04]Loaded [CpuBackend] backend
+[2020-11-07 01:16:06]Number of threads used for NativeOps: 4
+[2020-11-07 01:16:07]Number of threads used for BLAS: 4
+[2020-11-07 01:16:07]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 01:16:07]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 01:16:07]Blas vendor: [OPENBLAS]
+[2020-11-07 01:16:07]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 01:16:12]
+==========================================================================================================================================================================================================================================================
+VertexName (VertexType)                 nIn,nOut  TotalParams ParamsShape                             Vertex Inputs                 
+==========================================================================================================================================================================================================================================================
+input1 (InputVertex)                    -,-       -           -                                       -                             
+pad1 (ZeroPaddingLayer)                 -,-       0           -                                       [input1]                      
+conv1 (ConvolutionLayer)                3,64      9472        W:{64,3,7,7}, b:{1,64}                  [pad1]                        
+bn1 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv1]                       
+relu1 (ActivationLayer)                 -,-       0           -                                       [bn1]                         
+pad2 (ZeroPaddingLayer)                 -,-       0           -                                       [relu1]                       
+pool1 (SubsamplingLayer)                -,-       0           -                                       [pad2]                        
+conv2 (ConvolutionLayer)                64,64     4160        W:{64,64,1,1}, b:{1,64}                 [pool1]                       
+bn2 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv2]                       
+relu2 (ActivationLayer)                 -,-       0           -                                       [bn2]                         
+pad3 (ZeroPaddingLayer)                 -,-       0           -                                       [relu2]                       
+conv3 (ConvolutionLayer)                64,192    110784      W:{192,64,3,3}, b:{1,192}               [pad3]                        
+bn3 (BatchNormalization)                192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[conv3]                       
+relu3 (ActivationLayer)                 -,-       0           -                                       [bn3]                         
+pad4 (ZeroPaddingLayer)                 -,-       0           -                                       [relu3]                       
+pool2 (SubsamplingLayer)                -,-       0           -                                       [pad4]                        
+inception_3a_3x3_conv1 (ConvolutionLayer)192,96    18528       W:{96,192,1,1}, b:{1,96}                [pool2]                       
+inception_3a_1x1_conv (ConvolutionLayer)192,64    12352       W:{64,192,1,1}, b:{1,64}                [pool2]                       
+inception_3a_5x5_conv1 (ConvolutionLayer)192,16    3088        W:{16,192,1,1}, b:{1,16}                [pool2]                       
+pool3 (SubsamplingLayer)                -,-       0           -                                       [pool2]                       
+inception_3a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3a_3x3_conv1]      
+inception_3a_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3a_1x1_conv]       
+inception_3a_5x5_bn1 (BatchNormalization)16,16     64          gamma:{1,16}, beta:{1,16}, mean:{1,16}, var:{1,16}[inception_3a_5x5_conv1]      
+inception_3a_pool_conv (ConvolutionLayer)192,32    6176        W:{32,192,1,1}, b:{1,32}                [pool3]                       
+relu4 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn1]        
+relu9 (ActivationLayer)                 -,-       0           -                                       [inception_3a_1x1_bn]         
+relu6 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn1]        
+inception_3a_pool_bn (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_pool_conv]      
+padding1 (ZeroPaddingLayer)             -,-       0           -                                       [relu4]                       
+padding2 (ZeroPaddingLayer)             -,-       0           -                                       [relu6]                       
+relu8 (ActivationLayer)                 -,-       0           -                                       [inception_3a_pool_bn]        
+inception_3a_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding1]                    
+inception_3a_5x5_conv2 (ConvolutionLayer)16,32     12832       W:{32,16,5,5}, b:{1,32}                 [padding2]                    
+padding3 (ZeroPaddingLayer)             -,-       0           -                                       [relu8]                       
+inception_3a_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3a_3x3_conv2]      
+inception_3a_5x5_bn2 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_5x5_conv2]      
+relu5 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn2]        
+relu7 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn2]        
+inception_3a (MergeVertex)              -,-       -           -                                       [relu5, relu7, padding3, relu9]
+avg1 (SubsamplingLayer)                 -,-       0           -                                       [inception_3a]                
+inception_3b_3x3_conv1 (ConvolutionLayer)256,96    24672       W:{96,256,1,1}, b:{1,96}                [inception_3a]                
+inception_3b_1x1_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [inception_3a]                
+inception_3b_5x5_conv1 (ConvolutionLayer)256,32    8224        W:{32,256,1,1}, b:{1,32}                [inception_3a]                
+inception_3b_pool_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [avg1]                        
+inception_3b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3b_3x3_conv1]      
+inception_3b_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_1x1_conv]       
+inception_3b_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3b_5x5_conv1]      
+inception_3b_pool_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_pool_conv]      
+relu10 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn1]        
+relu15 (ActivationLayer)                -,-       0           -                                       [inception_3b_1x1_bn]         
+relu12 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn1]        
+relu14 (ActivationLayer)                -,-       0           -                                       [inception_3b_pool_bn]        
+padding4 (ZeroPaddingLayer)             -,-       0           -                                       [relu10]                      
+padding5 (ZeroPaddingLayer)             -,-       0           -                                       [relu12]                      
+padding6 (ZeroPaddingLayer)             -,-       0           -                                       [relu14]                      
+inception_3b_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding4]                    
+inception_3b_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding5]                    
+inception_3b_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3b_3x3_conv2]      
+inception_3b_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_5x5_conv2]      
+relu11 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn2]        
+relu13 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn2]        
+inception_3b (MergeVertex)              -,-       -           -                                       [relu11, relu13, padding6, relu15]
+inception_3c_5x5_conv1 (ConvolutionLayer)320,32    10272       W:{32,320,1,1}, b:{1,32}                [inception_3b]                
+pool7 (SubsamplingLayer)                -,-       0           -                                       [inception_3b]                
+inception_3c_3x3_conv1 (ConvolutionLayer)320,128   41088       W:{128,320,1,1}, b:{1,128}              [inception_3b]                
+inception_3c_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3c_5x5_conv1]      
+padding9 (ZeroPaddingLayer)             -,-       0           -                                       [pool7]                       
+inception_3c_3x3_bn1 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3c_3x3_conv1]      
+relu18 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn1]        
+relu16 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn1]        
+padding8 (ZeroPaddingLayer)             -,-       0           -                                       [relu18]                      
+padding7 (ZeroPaddingLayer)             -,-       0           -                                       [relu16]                      
+inception_3c_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding8]                    
+inception_3c_3x3_conv2 (ConvolutionLayer)128,256   295168      W:{256,128,3,3}, b:{1,256}              [padding7]                    
+inception_3c_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3c_5x5_conv2]      
+inception_3c_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_3c_3x3_conv2]      
+relu19 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn2]        
+relu17 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn2]        
+inception_3c (MergeVertex)              -,-       -           -                                       [relu17, relu19, padding9]    
+inception_4a_1x1_conv (ConvolutionLayer)640,256   164096      W:{256,640,1,1}, b:{1,256}              [inception_3c]                
+inception_4a_5x5_conv1 (ConvolutionLayer)640,32    20512       W:{32,640,1,1}, b:{1,32}                [inception_3c]                
+avg7 (SubsamplingLayer)                 -,-       0           -                                       [inception_3c]                
+inception_4a_3x3_conv1 (ConvolutionLayer)640,96    61536       W:{96,640,1,1}, b:{1,96}                [inception_3c]                
+inception_4a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4a_1x1_conv]       
+inception_4a_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_4a_5x5_conv1]      
+inception_4a_pool_conv (ConvolutionLayer)640,128   82048       W:{128,640,1,1}, b:{1,128}              [avg7]                        
+inception_4a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_4a_3x3_conv1]      
+relu25 (ActivationLayer)                -,-       0           -                                       [inception_4a_1x1_bn]         
+relu22 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn1]        
+inception_4a_pool_bn (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4a_pool_conv]      
+relu20 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn1]        
+padding11 (ZeroPaddingLayer)            -,-       0           -                                       [relu22]                      
+relu24 (ActivationLayer)                -,-       0           -                                       [inception_4a_pool_bn]        
+padding10 (ZeroPaddingLayer)            -,-       0           -                                       [relu20]                      
+inception_4a_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding11]                   
+padding12 (ZeroPaddingLayer)            -,-       0           -                                       [relu24]                      
+inception_4a_3x3_conv2 (ConvolutionLayer)96,192    166080      W:{192,96,3,3}, b:{1,192}               [padding10]                   
+inception_4a_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4a_5x5_conv2]      
+inception_4a_3x3_bn2 (BatchNormalization)192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[inception_4a_3x3_conv2]      
+relu23 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn2]        
+relu21 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn2]        
+inception_4a (MergeVertex)              -,-       -           -                                       [relu21, relu23, relu25, padding12]
+pool8 (SubsamplingLayer)                -,-       0           -                                       [inception_4a]                
+inception_4e_3x3_conv1 (ConvolutionLayer)640,160   102560      W:{160,640,1,1}, b:{1,160}              [inception_4a]                
+inception_4e_5x5_conv1 (ConvolutionLayer)640,64    41024       W:{64,640,1,1}, b:{1,64}                [inception_4a]                
+padding15 (ZeroPaddingLayer)            -,-       0           -                                       [pool8]                       
+inception_4e_3x3_bn1 (BatchNormalization)160,160   640         gamma:{1,160}, beta:{1,160}, mean:{1,160}, var:{1,160}[inception_4e_3x3_conv1]      
+inception_4e_5x5_bn1 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4e_5x5_conv1]      
+relu26 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn1]        
+relu28 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn1]        
+padding13 (ZeroPaddingLayer)            -,-       0           -                                       [relu26]                      
+padding14 (ZeroPaddingLayer)            -,-       0           -                                       [relu28]                      
+inception_4e_3x3_conv2 (ConvolutionLayer)160,256   368896      W:{256,160,3,3}, b:{1,256}              [padding13]                   
+inception_4e_5x5_conv2 (ConvolutionLayer)64,128    204928      W:{128,64,5,5}, b:{1,128}               [padding14]                   
+inception_4e_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4e_3x3_conv2]      
+inception_4e_5x5_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4e_5x5_conv2]      
+relu27 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn2]        
+relu29 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn2]        
+inception_4e (MergeVertex)              -,-       -           -                                       [relu27, relu29, padding15]   
+inception_5a_1x1_conv (ConvolutionLayer)1024,256  262400      W:{256,1024,1,1}, b:{1,256}             [inception_4e]                
+inception_5a_3x3_conv1 (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [inception_4e]                
+avg9 (SubsamplingLayer)                 -,-       0           -                                       [inception_4e]                
+inception_5a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5a_1x1_conv]       
+inception_5a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_3x3_conv1]      
+inception_5a_pool_conv (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [avg9]                        
+relu33 (ActivationLayer)                -,-       0           -                                       [inception_5a_1x1_bn]         
+relu30 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn1]        
+inception_5a_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_pool_conv]      
+padding16 (ZeroPaddingLayer)            -,-       0           -                                       [relu30]                      
+relu32 (ActivationLayer)                -,-       0           -                                       [inception_5a_pool_bn]        
+inception_5a_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding16]                   
+padding17 (ZeroPaddingLayer)            -,-       0           -                                       [relu32]                      
+inception_5a_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5a_3x3_conv2]      
+relu31 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn2]        
+inception_5a (MergeVertex)              -,-       -           -                                       [relu31, padding17, relu33]   
+inception_5b_1x1_conv (ConvolutionLayer)736,256   188672      W:{256,736,1,1}, b:{1,256}              [inception_5a]                
+inception_5b_3x3_conv1 (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [inception_5a]                
+max2 (SubsamplingLayer)                 -,-       0           -                                       [inception_5a]                
+inception_5b_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5b_1x1_conv]       
+inception_5b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_3x3_conv1]      
+inception_5b_pool_conv (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [max2]                        
+relu37 (ActivationLayer)                -,-       0           -                                       [inception_5b_1x1_bn]         
+relu34 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn1]        
+inception_5b_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_pool_conv]      
+padding18 (ZeroPaddingLayer)            -,-       0           -                                       [relu34]                      
+relu36 (ActivationLayer)                -,-       0           -                                       [inception_5b_pool_bn]        
+inception_5b_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding18]                   
+padding19 (ZeroPaddingLayer)            -,-       0           -                                       [relu36]                      
+inception_5b_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5b_3x3_conv2]      
+relu35 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn2]        
+inception_5b (MergeVertex)              -,-       -           -                                       [relu35, padding19, relu37]   
+avgpool (SubsamplingLayer)              -,-       0           -                                       [inception_5b]                
+dense (DenseLayer)                      736,128   94336       W:{736,128}, b:{1,128}                  [avgpool]                     
+encodings (L2NormalizeVertex)           -,-       -           -                                       [dense]                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            Total Parameters:  3743280
+        Trainable Parameters:  3743280
+           Frozen Parameters:  0
+==========================================================================================================================================================================================================================================================
+
+[2020-11-07 01:17:32]Loaded [CpuBackend] backend
+[2020-11-07 01:17:34]Number of threads used for NativeOps: 4
+[2020-11-07 01:17:35]Number of threads used for BLAS: 4
+[2020-11-07 01:17:35]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 01:17:35]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 01:17:35]Blas vendor: [OPENBLAS]
+[2020-11-07 01:17:35]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 01:17:39]
+==========================================================================================================================================================================================================================================================
+VertexName (VertexType)                 nIn,nOut  TotalParams ParamsShape                             Vertex Inputs                 
+==========================================================================================================================================================================================================================================================
+input1 (InputVertex)                    -,-       -           -                                       -                             
+pad1 (ZeroPaddingLayer)                 -,-       0           -                                       [input1]                      
+conv1 (ConvolutionLayer)                3,64      9472        W:{64,3,7,7}, b:{1,64}                  [pad1]                        
+bn1 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv1]                       
+relu1 (ActivationLayer)                 -,-       0           -                                       [bn1]                         
+pad2 (ZeroPaddingLayer)                 -,-       0           -                                       [relu1]                       
+pool1 (SubsamplingLayer)                -,-       0           -                                       [pad2]                        
+conv2 (ConvolutionLayer)                64,64     4160        W:{64,64,1,1}, b:{1,64}                 [pool1]                       
+bn2 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv2]                       
+relu2 (ActivationLayer)                 -,-       0           -                                       [bn2]                         
+pad3 (ZeroPaddingLayer)                 -,-       0           -                                       [relu2]                       
+conv3 (ConvolutionLayer)                64,192    110784      W:{192,64,3,3}, b:{1,192}               [pad3]                        
+bn3 (BatchNormalization)                192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[conv3]                       
+relu3 (ActivationLayer)                 -,-       0           -                                       [bn3]                         
+pad4 (ZeroPaddingLayer)                 -,-       0           -                                       [relu3]                       
+pool2 (SubsamplingLayer)                -,-       0           -                                       [pad4]                        
+inception_3a_3x3_conv1 (ConvolutionLayer)192,96    18528       W:{96,192,1,1}, b:{1,96}                [pool2]                       
+inception_3a_1x1_conv (ConvolutionLayer)192,64    12352       W:{64,192,1,1}, b:{1,64}                [pool2]                       
+inception_3a_5x5_conv1 (ConvolutionLayer)192,16    3088        W:{16,192,1,1}, b:{1,16}                [pool2]                       
+pool3 (SubsamplingLayer)                -,-       0           -                                       [pool2]                       
+inception_3a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3a_3x3_conv1]      
+inception_3a_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3a_1x1_conv]       
+inception_3a_5x5_bn1 (BatchNormalization)16,16     64          gamma:{1,16}, beta:{1,16}, mean:{1,16}, var:{1,16}[inception_3a_5x5_conv1]      
+inception_3a_pool_conv (ConvolutionLayer)192,32    6176        W:{32,192,1,1}, b:{1,32}                [pool3]                       
+relu4 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn1]        
+relu9 (ActivationLayer)                 -,-       0           -                                       [inception_3a_1x1_bn]         
+relu6 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn1]        
+inception_3a_pool_bn (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_pool_conv]      
+padding1 (ZeroPaddingLayer)             -,-       0           -                                       [relu4]                       
+padding2 (ZeroPaddingLayer)             -,-       0           -                                       [relu6]                       
+relu8 (ActivationLayer)                 -,-       0           -                                       [inception_3a_pool_bn]        
+inception_3a_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding1]                    
+inception_3a_5x5_conv2 (ConvolutionLayer)16,32     12832       W:{32,16,5,5}, b:{1,32}                 [padding2]                    
+padding3 (ZeroPaddingLayer)             -,-       0           -                                       [relu8]                       
+inception_3a_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3a_3x3_conv2]      
+inception_3a_5x5_bn2 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_5x5_conv2]      
+relu5 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn2]        
+relu7 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn2]        
+inception_3a (MergeVertex)              -,-       -           -                                       [relu5, relu7, padding3, relu9]
+avg1 (SubsamplingLayer)                 -,-       0           -                                       [inception_3a]                
+inception_3b_3x3_conv1 (ConvolutionLayer)256,96    24672       W:{96,256,1,1}, b:{1,96}                [inception_3a]                
+inception_3b_1x1_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [inception_3a]                
+inception_3b_5x5_conv1 (ConvolutionLayer)256,32    8224        W:{32,256,1,1}, b:{1,32}                [inception_3a]                
+inception_3b_pool_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [avg1]                        
+inception_3b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3b_3x3_conv1]      
+inception_3b_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_1x1_conv]       
+inception_3b_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3b_5x5_conv1]      
+inception_3b_pool_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_pool_conv]      
+relu10 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn1]        
+relu15 (ActivationLayer)                -,-       0           -                                       [inception_3b_1x1_bn]         
+relu12 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn1]        
+relu14 (ActivationLayer)                -,-       0           -                                       [inception_3b_pool_bn]        
+padding4 (ZeroPaddingLayer)             -,-       0           -                                       [relu10]                      
+padding5 (ZeroPaddingLayer)             -,-       0           -                                       [relu12]                      
+padding6 (ZeroPaddingLayer)             -,-       0           -                                       [relu14]                      
+inception_3b_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding4]                    
+inception_3b_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding5]                    
+inception_3b_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3b_3x3_conv2]      
+inception_3b_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_5x5_conv2]      
+relu11 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn2]        
+relu13 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn2]        
+inception_3b (MergeVertex)              -,-       -           -                                       [relu11, relu13, padding6, relu15]
+inception_3c_5x5_conv1 (ConvolutionLayer)320,32    10272       W:{32,320,1,1}, b:{1,32}                [inception_3b]                
+pool7 (SubsamplingLayer)                -,-       0           -                                       [inception_3b]                
+inception_3c_3x3_conv1 (ConvolutionLayer)320,128   41088       W:{128,320,1,1}, b:{1,128}              [inception_3b]                
+inception_3c_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3c_5x5_conv1]      
+padding9 (ZeroPaddingLayer)             -,-       0           -                                       [pool7]                       
+inception_3c_3x3_bn1 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3c_3x3_conv1]      
+relu18 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn1]        
+relu16 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn1]        
+padding8 (ZeroPaddingLayer)             -,-       0           -                                       [relu18]                      
+padding7 (ZeroPaddingLayer)             -,-       0           -                                       [relu16]                      
+inception_3c_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding8]                    
+inception_3c_3x3_conv2 (ConvolutionLayer)128,256   295168      W:{256,128,3,3}, b:{1,256}              [padding7]                    
+inception_3c_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3c_5x5_conv2]      
+inception_3c_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_3c_3x3_conv2]      
+relu19 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn2]        
+relu17 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn2]        
+inception_3c (MergeVertex)              -,-       -           -                                       [relu17, relu19, padding9]    
+inception_4a_1x1_conv (ConvolutionLayer)640,256   164096      W:{256,640,1,1}, b:{1,256}              [inception_3c]                
+inception_4a_5x5_conv1 (ConvolutionLayer)640,32    20512       W:{32,640,1,1}, b:{1,32}                [inception_3c]                
+avg7 (SubsamplingLayer)                 -,-       0           -                                       [inception_3c]                
+inception_4a_3x3_conv1 (ConvolutionLayer)640,96    61536       W:{96,640,1,1}, b:{1,96}                [inception_3c]                
+inception_4a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4a_1x1_conv]       
+inception_4a_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_4a_5x5_conv1]      
+inception_4a_pool_conv (ConvolutionLayer)640,128   82048       W:{128,640,1,1}, b:{1,128}              [avg7]                        
+inception_4a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_4a_3x3_conv1]      
+relu25 (ActivationLayer)                -,-       0           -                                       [inception_4a_1x1_bn]         
+relu22 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn1]        
+inception_4a_pool_bn (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4a_pool_conv]      
+relu20 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn1]        
+padding11 (ZeroPaddingLayer)            -,-       0           -                                       [relu22]                      
+relu24 (ActivationLayer)                -,-       0           -                                       [inception_4a_pool_bn]        
+padding10 (ZeroPaddingLayer)            -,-       0           -                                       [relu20]                      
+inception_4a_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding11]                   
+padding12 (ZeroPaddingLayer)            -,-       0           -                                       [relu24]                      
+inception_4a_3x3_conv2 (ConvolutionLayer)96,192    166080      W:{192,96,3,3}, b:{1,192}               [padding10]                   
+inception_4a_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4a_5x5_conv2]      
+inception_4a_3x3_bn2 (BatchNormalization)192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[inception_4a_3x3_conv2]      
+relu23 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn2]        
+relu21 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn2]        
+inception_4a (MergeVertex)              -,-       -           -                                       [relu21, relu23, relu25, padding12]
+pool8 (SubsamplingLayer)                -,-       0           -                                       [inception_4a]                
+inception_4e_3x3_conv1 (ConvolutionLayer)640,160   102560      W:{160,640,1,1}, b:{1,160}              [inception_4a]                
+inception_4e_5x5_conv1 (ConvolutionLayer)640,64    41024       W:{64,640,1,1}, b:{1,64}                [inception_4a]                
+padding15 (ZeroPaddingLayer)            -,-       0           -                                       [pool8]                       
+inception_4e_3x3_bn1 (BatchNormalization)160,160   640         gamma:{1,160}, beta:{1,160}, mean:{1,160}, var:{1,160}[inception_4e_3x3_conv1]      
+inception_4e_5x5_bn1 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4e_5x5_conv1]      
+relu26 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn1]        
+relu28 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn1]        
+padding13 (ZeroPaddingLayer)            -,-       0           -                                       [relu26]                      
+padding14 (ZeroPaddingLayer)            -,-       0           -                                       [relu28]                      
+inception_4e_3x3_conv2 (ConvolutionLayer)160,256   368896      W:{256,160,3,3}, b:{1,256}              [padding13]                   
+inception_4e_5x5_conv2 (ConvolutionLayer)64,128    204928      W:{128,64,5,5}, b:{1,128}               [padding14]                   
+inception_4e_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4e_3x3_conv2]      
+inception_4e_5x5_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4e_5x5_conv2]      
+relu27 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn2]        
+relu29 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn2]        
+inception_4e (MergeVertex)              -,-       -           -                                       [relu27, relu29, padding15]   
+inception_5a_1x1_conv (ConvolutionLayer)1024,256  262400      W:{256,1024,1,1}, b:{1,256}             [inception_4e]                
+inception_5a_3x3_conv1 (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [inception_4e]                
+avg9 (SubsamplingLayer)                 -,-       0           -                                       [inception_4e]                
+inception_5a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5a_1x1_conv]       
+inception_5a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_3x3_conv1]      
+inception_5a_pool_conv (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [avg9]                        
+relu33 (ActivationLayer)                -,-       0           -                                       [inception_5a_1x1_bn]         
+relu30 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn1]        
+inception_5a_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_pool_conv]      
+padding16 (ZeroPaddingLayer)            -,-       0           -                                       [relu30]                      
+relu32 (ActivationLayer)                -,-       0           -                                       [inception_5a_pool_bn]        
+inception_5a_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding16]                   
+padding17 (ZeroPaddingLayer)            -,-       0           -                                       [relu32]                      
+inception_5a_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5a_3x3_conv2]      
+relu31 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn2]        
+inception_5a (MergeVertex)              -,-       -           -                                       [relu31, padding17, relu33]   
+inception_5b_1x1_conv (ConvolutionLayer)736,256   188672      W:{256,736,1,1}, b:{1,256}              [inception_5a]                
+inception_5b_3x3_conv1 (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [inception_5a]                
+max2 (SubsamplingLayer)                 -,-       0           -                                       [inception_5a]                
+inception_5b_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5b_1x1_conv]       
+inception_5b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_3x3_conv1]      
+inception_5b_pool_conv (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [max2]                        
+relu37 (ActivationLayer)                -,-       0           -                                       [inception_5b_1x1_bn]         
+relu34 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn1]        
+inception_5b_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_pool_conv]      
+padding18 (ZeroPaddingLayer)            -,-       0           -                                       [relu34]                      
+relu36 (ActivationLayer)                -,-       0           -                                       [inception_5b_pool_bn]        
+inception_5b_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding18]                   
+padding19 (ZeroPaddingLayer)            -,-       0           -                                       [relu36]                      
+inception_5b_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5b_3x3_conv2]      
+relu35 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn2]        
+inception_5b (MergeVertex)              -,-       -           -                                       [relu35, padding19, relu37]   
+avgpool (SubsamplingLayer)              -,-       0           -                                       [inception_5b]                
+dense (DenseLayer)                      736,128   94336       W:{736,128}, b:{1,128}                  [avgpool]                     
+encodings (L2NormalizeVertex)           -,-       -           -                                       [dense]                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            Total Parameters:  3743280
+        Trainable Parameters:  3743280
+           Frozen Parameters:  0
+==========================================================================================================================================================================================================================================================
+
+[2020-11-07 01:22:17]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:17]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:17]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:17]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:18]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:18]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:18]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:26]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:26]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:26]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:26]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:26]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:26]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:26]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:27]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:27]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:27]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:27]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:27]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:27]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:27]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:27]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:27]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:27]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:27]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:27]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:27]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:27]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:27]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:27]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:27]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:27]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:27]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:27]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:27]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:28]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:22:28]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:22:28]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:22:28]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:22:28]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:22:28]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:22:28]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:22:55]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 01:22:55]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.0
+[2020-11-07 01:22:55]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 01:22:55]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 01:22:55]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 01:22:55]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 01:22:55]obama with distance 0.0
+[2020-11-07 01:23:20]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:23:20]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:23:20]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:23:20]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:23:20]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:23:20]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:23:20]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:23:21]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:23:21]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:23:21]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:23:21]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:23:21]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:23:21]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:23:21]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:23:21]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:23:21]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:23:21]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:23:21]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:23:21]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:23:21]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:23:21]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:23:22]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:23:22]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:23:22]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:23:22]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:23:22]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:23:22]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:23:22]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:25:35]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:25:35]distance of obama with barack-obama-12782369-1-402.jpg is 0.9168616533279419
+[2020-11-07 01:25:35]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:25:35]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:25:35]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:25:35]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:25:35]GerhardSchroeder with distance 0.4510003626346588
+[2020-11-07 01:26:00]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 01:26:00]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 01:26:00]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 01:26:00]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 01:26:00]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 01:26:00]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 01:26:00]AlSharpton with distance 0.5440326929092407
+[2020-11-07 01:26:08]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 01:26:08]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 01:26:08]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 01:26:08]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 01:26:08]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 01:26:08]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 01:26:08]AlSharpton with distance 0.5440326929092407
+[2020-11-07 01:26:30]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 01:26:30]distance of obama with barack-obama-12782369-1-402.jpg is 0.0
+[2020-11-07 01:26:30]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 01:26:30]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 01:26:30]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 01:26:30]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 01:26:30]obama with distance 0.0
+[2020-11-07 01:27:06]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 01:27:06]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 01:27:06]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 01:27:06]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 01:27:06]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 01:27:06]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 01:27:06]AlSharpton with distance 0.5440326929092407
+[2020-11-07 01:27:18]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 01:27:18]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 01:27:18]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 01:27:18]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 01:27:18]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 01:27:18]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 01:27:18]AlSharpton with distance 0.5440326929092407
+[2020-11-07 01:50:18]Loaded [CpuBackend] backend
+[2020-11-07 01:50:20]Number of threads used for NativeOps: 4
+[2020-11-07 01:50:21]Number of threads used for BLAS: 4
+[2020-11-07 01:50:21]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 01:50:21]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 01:50:21]Blas vendor: [OPENBLAS]
+[2020-11-07 01:50:21]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 01:50:25]
+==========================================================================================================================================================================================================================================================
+VertexName (VertexType)                 nIn,nOut  TotalParams ParamsShape                             Vertex Inputs                 
+==========================================================================================================================================================================================================================================================
+input1 (InputVertex)                    -,-       -           -                                       -                             
+pad1 (ZeroPaddingLayer)                 -,-       0           -                                       [input1]                      
+conv1 (ConvolutionLayer)                3,64      9472        W:{64,3,7,7}, b:{1,64}                  [pad1]                        
+bn1 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv1]                       
+relu1 (ActivationLayer)                 -,-       0           -                                       [bn1]                         
+pad2 (ZeroPaddingLayer)                 -,-       0           -                                       [relu1]                       
+pool1 (SubsamplingLayer)                -,-       0           -                                       [pad2]                        
+conv2 (ConvolutionLayer)                64,64     4160        W:{64,64,1,1}, b:{1,64}                 [pool1]                       
+bn2 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv2]                       
+relu2 (ActivationLayer)                 -,-       0           -                                       [bn2]                         
+pad3 (ZeroPaddingLayer)                 -,-       0           -                                       [relu2]                       
+conv3 (ConvolutionLayer)                64,192    110784      W:{192,64,3,3}, b:{1,192}               [pad3]                        
+bn3 (BatchNormalization)                192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[conv3]                       
+relu3 (ActivationLayer)                 -,-       0           -                                       [bn3]                         
+pad4 (ZeroPaddingLayer)                 -,-       0           -                                       [relu3]                       
+pool2 (SubsamplingLayer)                -,-       0           -                                       [pad4]                        
+inception_3a_3x3_conv1 (ConvolutionLayer)192,96    18528       W:{96,192,1,1}, b:{1,96}                [pool2]                       
+inception_3a_1x1_conv (ConvolutionLayer)192,64    12352       W:{64,192,1,1}, b:{1,64}                [pool2]                       
+inception_3a_5x5_conv1 (ConvolutionLayer)192,16    3088        W:{16,192,1,1}, b:{1,16}                [pool2]                       
+pool3 (SubsamplingLayer)                -,-       0           -                                       [pool2]                       
+inception_3a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3a_3x3_conv1]      
+inception_3a_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3a_1x1_conv]       
+inception_3a_5x5_bn1 (BatchNormalization)16,16     64          gamma:{1,16}, beta:{1,16}, mean:{1,16}, var:{1,16}[inception_3a_5x5_conv1]      
+inception_3a_pool_conv (ConvolutionLayer)192,32    6176        W:{32,192,1,1}, b:{1,32}                [pool3]                       
+relu4 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn1]        
+relu9 (ActivationLayer)                 -,-       0           -                                       [inception_3a_1x1_bn]         
+relu6 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn1]        
+inception_3a_pool_bn (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_pool_conv]      
+padding1 (ZeroPaddingLayer)             -,-       0           -                                       [relu4]                       
+padding2 (ZeroPaddingLayer)             -,-       0           -                                       [relu6]                       
+relu8 (ActivationLayer)                 -,-       0           -                                       [inception_3a_pool_bn]        
+inception_3a_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding1]                    
+inception_3a_5x5_conv2 (ConvolutionLayer)16,32     12832       W:{32,16,5,5}, b:{1,32}                 [padding2]                    
+padding3 (ZeroPaddingLayer)             -,-       0           -                                       [relu8]                       
+inception_3a_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3a_3x3_conv2]      
+inception_3a_5x5_bn2 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_5x5_conv2]      
+relu5 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn2]        
+relu7 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn2]        
+inception_3a (MergeVertex)              -,-       -           -                                       [relu5, relu7, padding3, relu9]
+avg1 (SubsamplingLayer)                 -,-       0           -                                       [inception_3a]                
+inception_3b_3x3_conv1 (ConvolutionLayer)256,96    24672       W:{96,256,1,1}, b:{1,96}                [inception_3a]                
+inception_3b_1x1_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [inception_3a]                
+inception_3b_5x5_conv1 (ConvolutionLayer)256,32    8224        W:{32,256,1,1}, b:{1,32}                [inception_3a]                
+inception_3b_pool_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [avg1]                        
+inception_3b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3b_3x3_conv1]      
+inception_3b_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_1x1_conv]       
+inception_3b_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3b_5x5_conv1]      
+inception_3b_pool_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_pool_conv]      
+relu10 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn1]        
+relu15 (ActivationLayer)                -,-       0           -                                       [inception_3b_1x1_bn]         
+relu12 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn1]        
+relu14 (ActivationLayer)                -,-       0           -                                       [inception_3b_pool_bn]        
+padding4 (ZeroPaddingLayer)             -,-       0           -                                       [relu10]                      
+padding5 (ZeroPaddingLayer)             -,-       0           -                                       [relu12]                      
+padding6 (ZeroPaddingLayer)             -,-       0           -                                       [relu14]                      
+inception_3b_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding4]                    
+inception_3b_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding5]                    
+inception_3b_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3b_3x3_conv2]      
+inception_3b_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_5x5_conv2]      
+relu11 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn2]        
+relu13 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn2]        
+inception_3b (MergeVertex)              -,-       -           -                                       [relu11, relu13, padding6, relu15]
+inception_3c_5x5_conv1 (ConvolutionLayer)320,32    10272       W:{32,320,1,1}, b:{1,32}                [inception_3b]                
+pool7 (SubsamplingLayer)                -,-       0           -                                       [inception_3b]                
+inception_3c_3x3_conv1 (ConvolutionLayer)320,128   41088       W:{128,320,1,1}, b:{1,128}              [inception_3b]                
+inception_3c_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3c_5x5_conv1]      
+padding9 (ZeroPaddingLayer)             -,-       0           -                                       [pool7]                       
+inception_3c_3x3_bn1 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3c_3x3_conv1]      
+relu18 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn1]        
+relu16 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn1]        
+padding8 (ZeroPaddingLayer)             -,-       0           -                                       [relu18]                      
+padding7 (ZeroPaddingLayer)             -,-       0           -                                       [relu16]                      
+inception_3c_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding8]                    
+inception_3c_3x3_conv2 (ConvolutionLayer)128,256   295168      W:{256,128,3,3}, b:{1,256}              [padding7]                    
+inception_3c_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3c_5x5_conv2]      
+inception_3c_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_3c_3x3_conv2]      
+relu19 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn2]        
+relu17 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn2]        
+inception_3c (MergeVertex)              -,-       -           -                                       [relu17, relu19, padding9]    
+inception_4a_1x1_conv (ConvolutionLayer)640,256   164096      W:{256,640,1,1}, b:{1,256}              [inception_3c]                
+inception_4a_5x5_conv1 (ConvolutionLayer)640,32    20512       W:{32,640,1,1}, b:{1,32}                [inception_3c]                
+avg7 (SubsamplingLayer)                 -,-       0           -                                       [inception_3c]                
+inception_4a_3x3_conv1 (ConvolutionLayer)640,96    61536       W:{96,640,1,1}, b:{1,96}                [inception_3c]                
+inception_4a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4a_1x1_conv]       
+inception_4a_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_4a_5x5_conv1]      
+inception_4a_pool_conv (ConvolutionLayer)640,128   82048       W:{128,640,1,1}, b:{1,128}              [avg7]                        
+inception_4a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_4a_3x3_conv1]      
+relu25 (ActivationLayer)                -,-       0           -                                       [inception_4a_1x1_bn]         
+relu22 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn1]        
+inception_4a_pool_bn (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4a_pool_conv]      
+relu20 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn1]        
+padding11 (ZeroPaddingLayer)            -,-       0           -                                       [relu22]                      
+relu24 (ActivationLayer)                -,-       0           -                                       [inception_4a_pool_bn]        
+padding10 (ZeroPaddingLayer)            -,-       0           -                                       [relu20]                      
+inception_4a_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding11]                   
+padding12 (ZeroPaddingLayer)            -,-       0           -                                       [relu24]                      
+inception_4a_3x3_conv2 (ConvolutionLayer)96,192    166080      W:{192,96,3,3}, b:{1,192}               [padding10]                   
+inception_4a_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4a_5x5_conv2]      
+inception_4a_3x3_bn2 (BatchNormalization)192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[inception_4a_3x3_conv2]      
+relu23 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn2]        
+relu21 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn2]        
+inception_4a (MergeVertex)              -,-       -           -                                       [relu21, relu23, relu25, padding12]
+pool8 (SubsamplingLayer)                -,-       0           -                                       [inception_4a]                
+inception_4e_3x3_conv1 (ConvolutionLayer)640,160   102560      W:{160,640,1,1}, b:{1,160}              [inception_4a]                
+inception_4e_5x5_conv1 (ConvolutionLayer)640,64    41024       W:{64,640,1,1}, b:{1,64}                [inception_4a]                
+padding15 (ZeroPaddingLayer)            -,-       0           -                                       [pool8]                       
+inception_4e_3x3_bn1 (BatchNormalization)160,160   640         gamma:{1,160}, beta:{1,160}, mean:{1,160}, var:{1,160}[inception_4e_3x3_conv1]      
+inception_4e_5x5_bn1 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4e_5x5_conv1]      
+relu26 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn1]        
+relu28 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn1]        
+padding13 (ZeroPaddingLayer)            -,-       0           -                                       [relu26]                      
+padding14 (ZeroPaddingLayer)            -,-       0           -                                       [relu28]                      
+inception_4e_3x3_conv2 (ConvolutionLayer)160,256   368896      W:{256,160,3,3}, b:{1,256}              [padding13]                   
+inception_4e_5x5_conv2 (ConvolutionLayer)64,128    204928      W:{128,64,5,5}, b:{1,128}               [padding14]                   
+inception_4e_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4e_3x3_conv2]      
+inception_4e_5x5_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4e_5x5_conv2]      
+relu27 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn2]        
+relu29 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn2]        
+inception_4e (MergeVertex)              -,-       -           -                                       [relu27, relu29, padding15]   
+inception_5a_1x1_conv (ConvolutionLayer)1024,256  262400      W:{256,1024,1,1}, b:{1,256}             [inception_4e]                
+inception_5a_3x3_conv1 (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [inception_4e]                
+avg9 (SubsamplingLayer)                 -,-       0           -                                       [inception_4e]                
+inception_5a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5a_1x1_conv]       
+inception_5a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_3x3_conv1]      
+inception_5a_pool_conv (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [avg9]                        
+relu33 (ActivationLayer)                -,-       0           -                                       [inception_5a_1x1_bn]         
+relu30 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn1]        
+inception_5a_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_pool_conv]      
+padding16 (ZeroPaddingLayer)            -,-       0           -                                       [relu30]                      
+relu32 (ActivationLayer)                -,-       0           -                                       [inception_5a_pool_bn]        
+inception_5a_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding16]                   
+padding17 (ZeroPaddingLayer)            -,-       0           -                                       [relu32]                      
+inception_5a_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5a_3x3_conv2]      
+relu31 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn2]        
+inception_5a (MergeVertex)              -,-       -           -                                       [relu31, padding17, relu33]   
+inception_5b_1x1_conv (ConvolutionLayer)736,256   188672      W:{256,736,1,1}, b:{1,256}              [inception_5a]                
+inception_5b_3x3_conv1 (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [inception_5a]                
+max2 (SubsamplingLayer)                 -,-       0           -                                       [inception_5a]                
+inception_5b_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5b_1x1_conv]       
+inception_5b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_3x3_conv1]      
+inception_5b_pool_conv (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [max2]                        
+relu37 (ActivationLayer)                -,-       0           -                                       [inception_5b_1x1_bn]         
+relu34 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn1]        
+inception_5b_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_pool_conv]      
+padding18 (ZeroPaddingLayer)            -,-       0           -                                       [relu34]                      
+relu36 (ActivationLayer)                -,-       0           -                                       [inception_5b_pool_bn]        
+inception_5b_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding18]                   
+padding19 (ZeroPaddingLayer)            -,-       0           -                                       [relu36]                      
+inception_5b_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5b_3x3_conv2]      
+relu35 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn2]        
+inception_5b (MergeVertex)              -,-       -           -                                       [relu35, padding19, relu37]   
+avgpool (SubsamplingLayer)              -,-       0           -                                       [inception_5b]                
+dense (DenseLayer)                      736,128   94336       W:{736,128}, b:{1,128}                  [avgpool]                     
+encodings (L2NormalizeVertex)           -,-       -           -                                       [dense]                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            Total Parameters:  3743280
+        Trainable Parameters:  3743280
+           Frozen Parameters:  0
+==========================================================================================================================================================================================================================================================
+
+[2020-11-07 02:25:20]Loaded [CpuBackend] backend
+[2020-11-07 02:25:22]Number of threads used for NativeOps: 4
+[2020-11-07 02:25:23]Number of threads used for BLAS: 4
+[2020-11-07 02:25:23]Backend used: [CPU]; OS: [Windows 10]
+[2020-11-07 02:25:23]Cores: [4]; Memory: [3.5GB];
+[2020-11-07 02:25:23]Blas vendor: [OPENBLAS]
+[2020-11-07 02:25:23]Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[2020-11-07 02:25:27]
+==========================================================================================================================================================================================================================================================
+VertexName (VertexType)                 nIn,nOut  TotalParams ParamsShape                             Vertex Inputs                 
+==========================================================================================================================================================================================================================================================
+input1 (InputVertex)                    -,-       -           -                                       -                             
+pad1 (ZeroPaddingLayer)                 -,-       0           -                                       [input1]                      
+conv1 (ConvolutionLayer)                3,64      9472        W:{64,3,7,7}, b:{1,64}                  [pad1]                        
+bn1 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv1]                       
+relu1 (ActivationLayer)                 -,-       0           -                                       [bn1]                         
+pad2 (ZeroPaddingLayer)                 -,-       0           -                                       [relu1]                       
+pool1 (SubsamplingLayer)                -,-       0           -                                       [pad2]                        
+conv2 (ConvolutionLayer)                64,64     4160        W:{64,64,1,1}, b:{1,64}                 [pool1]                       
+bn2 (BatchNormalization)                64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[conv2]                       
+relu2 (ActivationLayer)                 -,-       0           -                                       [bn2]                         
+pad3 (ZeroPaddingLayer)                 -,-       0           -                                       [relu2]                       
+conv3 (ConvolutionLayer)                64,192    110784      W:{192,64,3,3}, b:{1,192}               [pad3]                        
+bn3 (BatchNormalization)                192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[conv3]                       
+relu3 (ActivationLayer)                 -,-       0           -                                       [bn3]                         
+pad4 (ZeroPaddingLayer)                 -,-       0           -                                       [relu3]                       
+pool2 (SubsamplingLayer)                -,-       0           -                                       [pad4]                        
+inception_3a_3x3_conv1 (ConvolutionLayer)192,96    18528       W:{96,192,1,1}, b:{1,96}                [pool2]                       
+inception_3a_1x1_conv (ConvolutionLayer)192,64    12352       W:{64,192,1,1}, b:{1,64}                [pool2]                       
+inception_3a_5x5_conv1 (ConvolutionLayer)192,16    3088        W:{16,192,1,1}, b:{1,16}                [pool2]                       
+pool3 (SubsamplingLayer)                -,-       0           -                                       [pool2]                       
+inception_3a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3a_3x3_conv1]      
+inception_3a_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3a_1x1_conv]       
+inception_3a_5x5_bn1 (BatchNormalization)16,16     64          gamma:{1,16}, beta:{1,16}, mean:{1,16}, var:{1,16}[inception_3a_5x5_conv1]      
+inception_3a_pool_conv (ConvolutionLayer)192,32    6176        W:{32,192,1,1}, b:{1,32}                [pool3]                       
+relu4 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn1]        
+relu9 (ActivationLayer)                 -,-       0           -                                       [inception_3a_1x1_bn]         
+relu6 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn1]        
+inception_3a_pool_bn (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_pool_conv]      
+padding1 (ZeroPaddingLayer)             -,-       0           -                                       [relu4]                       
+padding2 (ZeroPaddingLayer)             -,-       0           -                                       [relu6]                       
+relu8 (ActivationLayer)                 -,-       0           -                                       [inception_3a_pool_bn]        
+inception_3a_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding1]                    
+inception_3a_5x5_conv2 (ConvolutionLayer)16,32     12832       W:{32,16,5,5}, b:{1,32}                 [padding2]                    
+padding3 (ZeroPaddingLayer)             -,-       0           -                                       [relu8]                       
+inception_3a_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3a_3x3_conv2]      
+inception_3a_5x5_bn2 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3a_5x5_conv2]      
+relu5 (ActivationLayer)                 -,-       0           -                                       [inception_3a_3x3_bn2]        
+relu7 (ActivationLayer)                 -,-       0           -                                       [inception_3a_5x5_bn2]        
+inception_3a (MergeVertex)              -,-       -           -                                       [relu5, relu7, padding3, relu9]
+avg1 (SubsamplingLayer)                 -,-       0           -                                       [inception_3a]                
+inception_3b_3x3_conv1 (ConvolutionLayer)256,96    24672       W:{96,256,1,1}, b:{1,96}                [inception_3a]                
+inception_3b_1x1_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [inception_3a]                
+inception_3b_5x5_conv1 (ConvolutionLayer)256,32    8224        W:{32,256,1,1}, b:{1,32}                [inception_3a]                
+inception_3b_pool_conv (ConvolutionLayer)256,64    16448       W:{64,256,1,1}, b:{1,64}                [avg1]                        
+inception_3b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_3b_3x3_conv1]      
+inception_3b_1x1_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_1x1_conv]       
+inception_3b_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3b_5x5_conv1]      
+inception_3b_pool_bn (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_pool_conv]      
+relu10 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn1]        
+relu15 (ActivationLayer)                -,-       0           -                                       [inception_3b_1x1_bn]         
+relu12 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn1]        
+relu14 (ActivationLayer)                -,-       0           -                                       [inception_3b_pool_bn]        
+padding4 (ZeroPaddingLayer)             -,-       0           -                                       [relu10]                      
+padding5 (ZeroPaddingLayer)             -,-       0           -                                       [relu12]                      
+padding6 (ZeroPaddingLayer)             -,-       0           -                                       [relu14]                      
+inception_3b_3x3_conv2 (ConvolutionLayer)96,128    110720      W:{128,96,3,3}, b:{1,128}               [padding4]                    
+inception_3b_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding5]                    
+inception_3b_3x3_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3b_3x3_conv2]      
+inception_3b_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3b_5x5_conv2]      
+relu11 (ActivationLayer)                -,-       0           -                                       [inception_3b_3x3_bn2]        
+relu13 (ActivationLayer)                -,-       0           -                                       [inception_3b_5x5_bn2]        
+inception_3b (MergeVertex)              -,-       -           -                                       [relu11, relu13, padding6, relu15]
+inception_3c_5x5_conv1 (ConvolutionLayer)320,32    10272       W:{32,320,1,1}, b:{1,32}                [inception_3b]                
+pool7 (SubsamplingLayer)                -,-       0           -                                       [inception_3b]                
+inception_3c_3x3_conv1 (ConvolutionLayer)320,128   41088       W:{128,320,1,1}, b:{1,128}              [inception_3b]                
+inception_3c_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_3c_5x5_conv1]      
+padding9 (ZeroPaddingLayer)             -,-       0           -                                       [pool7]                       
+inception_3c_3x3_bn1 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_3c_3x3_conv1]      
+relu18 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn1]        
+relu16 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn1]        
+padding8 (ZeroPaddingLayer)             -,-       0           -                                       [relu18]                      
+padding7 (ZeroPaddingLayer)             -,-       0           -                                       [relu16]                      
+inception_3c_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding8]                    
+inception_3c_3x3_conv2 (ConvolutionLayer)128,256   295168      W:{256,128,3,3}, b:{1,256}              [padding7]                    
+inception_3c_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_3c_5x5_conv2]      
+inception_3c_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_3c_3x3_conv2]      
+relu19 (ActivationLayer)                -,-       0           -                                       [inception_3c_5x5_bn2]        
+relu17 (ActivationLayer)                -,-       0           -                                       [inception_3c_3x3_bn2]        
+inception_3c (MergeVertex)              -,-       -           -                                       [relu17, relu19, padding9]    
+inception_4a_1x1_conv (ConvolutionLayer)640,256   164096      W:{256,640,1,1}, b:{1,256}              [inception_3c]                
+inception_4a_5x5_conv1 (ConvolutionLayer)640,32    20512       W:{32,640,1,1}, b:{1,32}                [inception_3c]                
+avg7 (SubsamplingLayer)                 -,-       0           -                                       [inception_3c]                
+inception_4a_3x3_conv1 (ConvolutionLayer)640,96    61536       W:{96,640,1,1}, b:{1,96}                [inception_3c]                
+inception_4a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4a_1x1_conv]       
+inception_4a_5x5_bn1 (BatchNormalization)32,32     128         gamma:{1,32}, beta:{1,32}, mean:{1,32}, var:{1,32}[inception_4a_5x5_conv1]      
+inception_4a_pool_conv (ConvolutionLayer)640,128   82048       W:{128,640,1,1}, b:{1,128}              [avg7]                        
+inception_4a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_4a_3x3_conv1]      
+relu25 (ActivationLayer)                -,-       0           -                                       [inception_4a_1x1_bn]         
+relu22 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn1]        
+inception_4a_pool_bn (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4a_pool_conv]      
+relu20 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn1]        
+padding11 (ZeroPaddingLayer)            -,-       0           -                                       [relu22]                      
+relu24 (ActivationLayer)                -,-       0           -                                       [inception_4a_pool_bn]        
+padding10 (ZeroPaddingLayer)            -,-       0           -                                       [relu20]                      
+inception_4a_5x5_conv2 (ConvolutionLayer)32,64     51264       W:{64,32,5,5}, b:{1,64}                 [padding11]                   
+padding12 (ZeroPaddingLayer)            -,-       0           -                                       [relu24]                      
+inception_4a_3x3_conv2 (ConvolutionLayer)96,192    166080      W:{192,96,3,3}, b:{1,192}               [padding10]                   
+inception_4a_5x5_bn2 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4a_5x5_conv2]      
+inception_4a_3x3_bn2 (BatchNormalization)192,192   768         gamma:{1,192}, beta:{1,192}, mean:{1,192}, var:{1,192}[inception_4a_3x3_conv2]      
+relu23 (ActivationLayer)                -,-       0           -                                       [inception_4a_5x5_bn2]        
+relu21 (ActivationLayer)                -,-       0           -                                       [inception_4a_3x3_bn2]        
+inception_4a (MergeVertex)              -,-       -           -                                       [relu21, relu23, relu25, padding12]
+pool8 (SubsamplingLayer)                -,-       0           -                                       [inception_4a]                
+inception_4e_3x3_conv1 (ConvolutionLayer)640,160   102560      W:{160,640,1,1}, b:{1,160}              [inception_4a]                
+inception_4e_5x5_conv1 (ConvolutionLayer)640,64    41024       W:{64,640,1,1}, b:{1,64}                [inception_4a]                
+padding15 (ZeroPaddingLayer)            -,-       0           -                                       [pool8]                       
+inception_4e_3x3_bn1 (BatchNormalization)160,160   640         gamma:{1,160}, beta:{1,160}, mean:{1,160}, var:{1,160}[inception_4e_3x3_conv1]      
+inception_4e_5x5_bn1 (BatchNormalization)64,64     256         gamma:{1,64}, beta:{1,64}, mean:{1,64}, var:{1,64}[inception_4e_5x5_conv1]      
+relu26 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn1]        
+relu28 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn1]        
+padding13 (ZeroPaddingLayer)            -,-       0           -                                       [relu26]                      
+padding14 (ZeroPaddingLayer)            -,-       0           -                                       [relu28]                      
+inception_4e_3x3_conv2 (ConvolutionLayer)160,256   368896      W:{256,160,3,3}, b:{1,256}              [padding13]                   
+inception_4e_5x5_conv2 (ConvolutionLayer)64,128    204928      W:{128,64,5,5}, b:{1,128}               [padding14]                   
+inception_4e_3x3_bn2 (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_4e_3x3_conv2]      
+inception_4e_5x5_bn2 (BatchNormalization)128,128   512         gamma:{1,128}, beta:{1,128}, mean:{1,128}, var:{1,128}[inception_4e_5x5_conv2]      
+relu27 (ActivationLayer)                -,-       0           -                                       [inception_4e_3x3_bn2]        
+relu29 (ActivationLayer)                -,-       0           -                                       [inception_4e_5x5_bn2]        
+inception_4e (MergeVertex)              -,-       -           -                                       [relu27, relu29, padding15]   
+inception_5a_1x1_conv (ConvolutionLayer)1024,256  262400      W:{256,1024,1,1}, b:{1,256}             [inception_4e]                
+inception_5a_3x3_conv1 (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [inception_4e]                
+avg9 (SubsamplingLayer)                 -,-       0           -                                       [inception_4e]                
+inception_5a_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5a_1x1_conv]       
+inception_5a_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_3x3_conv1]      
+inception_5a_pool_conv (ConvolutionLayer)1024,96   98400       W:{96,1024,1,1}, b:{1,96}               [avg9]                        
+relu33 (ActivationLayer)                -,-       0           -                                       [inception_5a_1x1_bn]         
+relu30 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn1]        
+inception_5a_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5a_pool_conv]      
+padding16 (ZeroPaddingLayer)            -,-       0           -                                       [relu30]                      
+relu32 (ActivationLayer)                -,-       0           -                                       [inception_5a_pool_bn]        
+inception_5a_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding16]                   
+padding17 (ZeroPaddingLayer)            -,-       0           -                                       [relu32]                      
+inception_5a_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5a_3x3_conv2]      
+relu31 (ActivationLayer)                -,-       0           -                                       [inception_5a_3x3_bn2]        
+inception_5a (MergeVertex)              -,-       -           -                                       [relu31, padding17, relu33]   
+inception_5b_1x1_conv (ConvolutionLayer)736,256   188672      W:{256,736,1,1}, b:{1,256}              [inception_5a]                
+inception_5b_3x3_conv1 (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [inception_5a]                
+max2 (SubsamplingLayer)                 -,-       0           -                                       [inception_5a]                
+inception_5b_1x1_bn (BatchNormalization)256,256   1024        gamma:{1,256}, beta:{1,256}, mean:{1,256}, var:{1,256}[inception_5b_1x1_conv]       
+inception_5b_3x3_bn1 (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_3x3_conv1]      
+inception_5b_pool_conv (ConvolutionLayer)736,96    70752       W:{96,736,1,1}, b:{1,96}                [max2]                        
+relu37 (ActivationLayer)                -,-       0           -                                       [inception_5b_1x1_bn]         
+relu34 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn1]        
+inception_5b_pool_bn (BatchNormalization)96,96     384         gamma:{1,96}, beta:{1,96}, mean:{1,96}, var:{1,96}[inception_5b_pool_conv]      
+padding18 (ZeroPaddingLayer)            -,-       0           -                                       [relu34]                      
+relu36 (ActivationLayer)                -,-       0           -                                       [inception_5b_pool_bn]        
+inception_5b_3x3_conv2 (ConvolutionLayer)96,384    332160      W:{384,96,3,3}, b:{1,384}               [padding18]                   
+padding19 (ZeroPaddingLayer)            -,-       0           -                                       [relu36]                      
+inception_5b_3x3_bn2 (BatchNormalization)384,384   1536        gamma:{1,384}, beta:{1,384}, mean:{1,384}, var:{1,384}[inception_5b_3x3_conv2]      
+relu35 (ActivationLayer)                -,-       0           -                                       [inception_5b_3x3_bn2]        
+inception_5b (MergeVertex)              -,-       -           -                                       [relu35, padding19, relu37]   
+avgpool (SubsamplingLayer)              -,-       0           -                                       [inception_5b]                
+dense (DenseLayer)                      736,128   94336       W:{736,128}, b:{1,128}                  [avgpool]                     
+encodings (L2NormalizeVertex)           -,-       -           -                                       [dense]                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            Total Parameters:  3743280
+        Trainable Parameters:  3743280
+           Frozen Parameters:  0
+==========================================================================================================================================================================================================================================================
+
+[2020-11-07 02:26:53]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 02:26:53]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 02:26:53]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 02:26:53]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 02:26:53]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 02:26:53]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 02:26:53]AlSharpton with distance 0.5440326929092407
+[2020-11-07 02:27:47]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 02:27:47]distance of obama with barack-obama-12782369-1-402.jpg is 0.0
+[2020-11-07 02:27:47]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 02:27:47]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 02:27:47]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 02:27:47]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 02:27:47]obama with distance 0.0
+[2020-11-07 02:28:39]distance of ArnoldSchwarzenegger with 1200px-President_Barack_Obama.jpg is 0.48160359263420105
+[2020-11-07 02:28:39]distance of obama with 1200px-President_Barack_Obama.jpg is 0.6958483457565308
+[2020-11-07 02:28:39]distance of GerhardSchroeder with 1200px-President_Barack_Obama.jpg is 0.6152198910713196
+[2020-11-07 02:28:39]distance of AlSharpton with 1200px-President_Barack_Obama.jpg is 0.5389410257339478
+[2020-11-07 02:28:39]distance of ArielSharon with 1200px-President_Barack_Obama.jpg is 0.5562942028045654
+[2020-11-07 02:28:39]distance of GeorgeWBush with 1200px-President_Barack_Obama.jpg is 0.5901011228561401
+[2020-11-07 02:28:39]ArnoldSchwarzenegger with distance 0.48160359263420105
+[2020-11-07 02:30:02]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:02]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:02]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:02]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:02]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:02]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:02]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:06]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:06]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:06]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:06]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:06]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:06]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:06]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:06]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:06]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:06]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:06]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:06]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:06]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:06]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:06]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:06]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:07]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:07]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:07]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:07]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:07]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:07]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:07]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:07]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:07]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:07]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:07]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:07]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:07]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:07]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:07]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:07]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:07]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:07]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:07]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:07]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArnoldSchwarzenegger with overview-Barack-Obama.jpg is 0.39915090799331665
+[2020-11-07 02:30:07]distance of obama with overview-Barack-Obama.jpg is 0.8200845718383789
+[2020-11-07 02:30:07]distance of GerhardSchroeder with overview-Barack-Obama.jpg is 0.7243886590003967
+[2020-11-07 02:30:07]distance of AlSharpton with overview-Barack-Obama.jpg is 0.34678468108177185
+[2020-11-07 02:30:07]distance of ArielSharon with overview-Barack-Obama.jpg is 0.5246430039405823
+[2020-11-07 02:30:07]distance of GeorgeWBush with overview-Barack-Obama.jpg is 0.660010576248169
+[2020-11-07 02:30:07]AlSharpton with distance 0.34678468108177185
+[2020-11-07 02:30:33]distance of ArnoldSchwarzenegger with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6079601645469666
+[2020-11-07 02:30:33]distance of obama with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.9168616533279419
+[2020-11-07 02:30:33]distance of GerhardSchroeder with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.8728389739990234
+[2020-11-07 02:30:33]distance of AlSharpton with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.5440326929092407
+[2020-11-07 02:30:33]distance of ArielSharon with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.6656258702278137
+[2020-11-07 02:30:33]distance of GeorgeWBush with 200819_abcnl_dnc3_obama_hpMain_16x9_992.jpg is 0.7270547151565552
+[2020-11-07 02:30:33]AlSharpton with distance 0.5440326929092407
+[2020-11-07 02:30:54]distance of ArnoldSchwarzenegger with barack-obama-12782369-1-402.jpg is 0.5578550100326538
+[2020-11-07 02:30:54]distance of obama with barack-obama-12782369-1-402.jpg is 0.0
+[2020-11-07 02:30:54]distance of GerhardSchroeder with barack-obama-12782369-1-402.jpg is 0.4510003626346588
+[2020-11-07 02:30:54]distance of AlSharpton with barack-obama-12782369-1-402.jpg is 0.7230446338653564
+[2020-11-07 02:30:54]distance of ArielSharon with barack-obama-12782369-1-402.jpg is 0.47833794355392456
+[2020-11-07 02:30:54]distance of GeorgeWBush with barack-obama-12782369-1-402.jpg is 0.6131239533424377
+[2020-11-07 02:30:54]obama with distance 0.0
+[2020-11-07 02:33:34]distance of ArnoldSchwarzenegger with 1200px-George-W-Bush.jpeg is 0.5007530450820923
+[2020-11-07 02:33:34]distance of obama with 1200px-George-W-Bush.jpeg is 0.8240491151809692
+[2020-11-07 02:33:34]distance of GerhardSchroeder with 1200px-George-W-Bush.jpeg is 0.6513913869857788
+[2020-11-07 02:33:34]distance of AlSharpton with 1200px-George-W-Bush.jpeg is 0.6063964366912842
+[2020-11-07 02:33:34]distance of ArielSharon with 1200px-George-W-Bush.jpeg is 0.5851616859436035
+[2020-11-07 02:33:34]distance of GeorgeWBush with 1200px-George-W-Bush.jpeg is 0.4650460183620453
+[2020-11-07 02:33:34]GeorgeWBush with distance 0.4650460183620453
+[2020-11-07 02:34:24]distance of ArnoldSchwarzenegger with 1200px-George-W-Bush.jpeg is 0.5007530450820923
+[2020-11-07 02:34:24]distance of obama with 1200px-George-W-Bush.jpeg is 0.8240491151809692
+[2020-11-07 02:34:24]distance of GerhardSchroeder with 1200px-George-W-Bush.jpeg is 0.6513913869857788
+[2020-11-07 02:34:24]distance of AlSharpton with 1200px-George-W-Bush.jpeg is 0.6063964366912842
+[2020-11-07 02:34:24]distance of ArielSharon with 1200px-George-W-Bush.jpeg is 0.5851616859436035
+[2020-11-07 02:34:24]distance of GeorgeWBush with 1200px-George-W-Bush.jpeg is 0.4650460183620453
+[2020-11-07 02:34:24]GeorgeWBush with distance 0.4650460183620453
+[2020-11-07 02:34:33]distance of ArnoldSchwarzenegger with _113851711_gettyimages-800113008.jpg is 0.6831138730049133
+[2020-11-07 02:34:33]distance of obama with _113851711_gettyimages-800113008.jpg is 0.9779849648475647
+[2020-11-07 02:34:33]distance of GerhardSchroeder with _113851711_gettyimages-800113008.jpg is 0.9458810687065125
+[2020-11-07 02:34:33]distance of AlSharpton with _113851711_gettyimages-800113008.jpg is 0.577392041683197
+[2020-11-07 02:34:33]distance of ArielSharon with _113851711_gettyimages-800113008.jpg is 0.7428116798400879
+[2020-11-07 02:34:33]distance of GeorgeWBush with _113851711_gettyimages-800113008.jpg is 0.8263183832168579
+[2020-11-07 02:34:33]Unknown user with distance 0.577392041683197
+[2020-11-07 02:35:08]distance of ArnoldSchwarzenegger with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.3835441768169403
+[2020-11-07 02:35:08]distance of obama with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.6244083642959595
+[2020-11-07 02:35:08]distance of GerhardSchroeder with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.4397900700569153
+[2020-11-07 02:35:08]distance of AlSharpton with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.5466235280036926
+[2020-11-07 02:35:08]distance of ArielSharon with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.4290451109409332
+[2020-11-07 02:35:08]distance of GeorgeWBush with 1200px-George_H._W._Bush_presidential_portrait_(cropped).jpg is 0.4481350779533386
+[2020-11-07 02:35:08]ArnoldSchwarzenegger with distance 0.3835441768169403
+[2020-11-07 02:36:18]distance of ArnoldSchwarzenegger with George-HW-Bush_850x460_acf_cropped.jpg is 0.4631239175796509
+[2020-11-07 02:36:18]distance of obama with George-HW-Bush_850x460_acf_cropped.jpg is 0.818774938583374
+[2020-11-07 02:36:18]distance of GerhardSchroeder with George-HW-Bush_850x460_acf_cropped.jpg is 0.6971768140792847
+[2020-11-07 02:36:18]distance of AlSharpton with George-HW-Bush_850x460_acf_cropped.jpg is 0.49340981245040894
+[2020-11-07 02:36:18]distance of ArielSharon with George-HW-Bush_850x460_acf_cropped.jpg is 0.5723612904548645
+[2020-11-07 02:36:18]distance of GeorgeWBush with George-HW-Bush_850x460_acf_cropped.jpg is 0.5452393889427185
+[2020-11-07 02:36:18]ArnoldSchwarzenegger with distance 0.4631239175796509
+[2020-11-07 02:36:20]distance of ArnoldSchwarzenegger with George-HW-Bush_850x460_acf_cropped.jpg is 0.4631239175796509
+[2020-11-07 02:36:20]distance of obama with George-HW-Bush_850x460_acf_cropped.jpg is 0.818774938583374
+[2020-11-07 02:36:20]distance of GerhardSchroeder with George-HW-Bush_850x460_acf_cropped.jpg is 0.6971768140792847
+[2020-11-07 02:36:20]distance of AlSharpton with George-HW-Bush_850x460_acf_cropped.jpg is 0.49340981245040894
+[2020-11-07 02:36:20]distance of ArielSharon with George-HW-Bush_850x460_acf_cropped.jpg is 0.5723612904548645
+[2020-11-07 02:36:20]distance of GeorgeWBush with George-HW-Bush_850x460_acf_cropped.jpg is 0.5452393889427185
+[2020-11-07 02:36:20]ArnoldSchwarzenegger with distance 0.4631239175796509
